@@ -14,6 +14,7 @@ namespace DotNetCoreSwagger.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ApiExplorerSettings(GroupName = "docV1")]//Groupname必须与文档名一致且区分大小写
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
@@ -25,6 +26,7 @@ namespace DotNetCoreSwagger.Controllers
         /// <param name="id">主键id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [ApiExplorerSettings(GroupName = "docV2")]
         public string Get(int id)
         {
             return "value";
@@ -35,18 +37,21 @@ namespace DotNetCoreSwagger.Controllers
         /// </summary>
         /// <param name="value"></param>
         [HttpPost]
+        [ApiExplorerSettings(GroupName = "docV1")]
         public void Post([FromBody]string value)
         {
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
+        [ApiExplorerSettings(GroupName = "docV1")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
+        [ApiExplorerSettings(GroupName = "docV1")]
         public void Delete(int id)
         {
         }
