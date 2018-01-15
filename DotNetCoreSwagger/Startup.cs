@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -36,9 +37,17 @@ namespace DotNetCoreSwagger
             services.AddSwaggerGen(op =>
                 {
                     op.SwaggerDoc("docV1", new Info { Version = "v1", Title = "docTitle", Description = "描述接口实现什么内容", TermsOfService = "不能用于商业，仅供学习", Contact = new Contact { Name = "联系人", Url = "网址", Email = "xxx@xxx.com" }, License = new License { Name = "MIT", Url = "https://coursera.com" } });
-                });
-            services.AddMvc();
 
+                    op.SwaggerDoc("docV2", new Info { Version = "v2", Title = "docTitle2", Description = "描述接口实现什么内容2", TermsOfService = "不能用于商业，仅供学习2", Contact = new Contact { Name = "联系人2", Url = "网址2", Email = "xxx2@xxx.com" }, License = new License { Name = "MIT", Url = "https://coursera.com" } });
+
+                    //增加api接口注释
+                    var basePath = AppContext.BaseDirectory;
+                    var xmlPath = Path.Combine(basePath, "DotNetCoreSwagger.xml");
+                    op.IncludeXmlComments(xmlPath);
+
+                });
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,13 +58,20 @@ namespace DotNetCoreSwagger
                 app.UseDeveloperExceptionPage();
             }
 
-            // 使Swagger中间件生效 core中 组件都是以中间件形式.
-            app.UseSwagger();
+            // 使Swagger中间件生效 core中 组件都是以中间件形式,定义接口文档生成格式.：
+            app.UseSwagger(
+                c =>
+                {
+                    c.RouteTemplate = "api-docs/{documentName}/swagger11.json";
+                });
 
             //启用swaggerUI  在此处的docV1必须与  op.SwaggerDoc name一致
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/docV1/swagger.json", "DemoApiV1");
+                c.RoutePrefix = "api-docs";//访问接口此时可以使用 xxxx/api-docs
+                c.SwaggerEndpoint("/api-docs/docV1/swagger11.json", "DemoApiV1");
+
+                c.SwaggerEndpoint("/api-docs/docV2/swagger11.json", "DemoApiV2");
             });
 
 
