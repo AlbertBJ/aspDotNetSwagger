@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  dotnetcoreswagger:
+    image: dotnetcoreswagger
+    build:
+      context: .
+      dockerfile: DotNetCoreSwagger/Dockerfile
