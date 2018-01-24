@@ -53,6 +53,9 @@ namespace DotNetCoreSwagger
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //为了使用 wwwroot下的资源文件，需增加该句
+            app.UseStaticFiles();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,6 +75,9 @@ namespace DotNetCoreSwagger
                 c.SwaggerEndpoint("/api-docs/docV1/swagger11.json", "DemoApiV1");
 
                 c.SwaggerEndpoint("/api-docs/docV2/swagger11.json", "DemoApiV2");
+
+                c.InjectStylesheet("/swagger-ui/CSS/custom.css");
+                c.InjectOnCompleteJavaScript("/swagger-ui/JS/custom.js");
             });
 
 
