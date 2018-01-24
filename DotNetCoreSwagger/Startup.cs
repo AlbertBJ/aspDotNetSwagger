@@ -25,6 +25,10 @@ namespace DotNetCoreSwagger
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //下面 区分swagger版本是利用在每个action上添加，有时会显的比较麻烦，可以参考官方的方法，利用namespace来区分版本
+            //https://github.com/domaindrivendev/Swashbuckle.AspNetCore#assign-actions-to-documents-by-convention
+
+
             //注册 swagger 生成器，可以在此处定义 多个文档，
             #region Info 类说明
             //public string Version { get; set; }  版本

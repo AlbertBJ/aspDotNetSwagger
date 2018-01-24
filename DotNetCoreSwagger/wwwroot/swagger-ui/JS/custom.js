@@ -6,5 +6,5 @@
     //logoImg.alt = "Foo, Inc.";
     //logoImg.src = "/swagger-ui/logo.svg";
     //logoImg.width = 496;
-    //https://cpratt.co/customizing-swagger-ui-in-asp-net-core/
+    //详细请参考https://cpratt.co/customizing-swagger-ui-in-asp-net-core/
 })();
